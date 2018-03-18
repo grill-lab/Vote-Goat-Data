@@ -1,0 +1,19 @@
+*******************  jq  ********************
+concate .json file filter by conditions
+
+Raw data
+cat data*.json | jq -s '[flatten | .[] | select(.Response=="True" and .Type=="movie" and .Plot!="N/A" and .Genre!="N/A" and .Ratings!=[] and .Released!="N/A" and .Runtime!="N/A" and .Runtime!="1 min" and .Runtime!="2 min" and .Runtime!="3 min" and .Runtime!="4 min" and .Runtime!="5 min" and .Runtime!="6 min" and .Runtime!="7 min" and .Runtime!="8 min" and .Runtime!="9 min" and .Runtime!="10 min" and .Runtime!="11 min" and .Runtime!="12 min" and .Runtime!="13 min" and .Runtime!="14 min" and .Runtime!="15 min" and .Runtime!="16 min" and .Runtime!="17 min" and .Runtime!="18 min" and .Runtime!="19 min" and .Runtime!="20 min" and .imdbRating!="N/A" and .Poster!="N/A")]' >> /omdb/output010.json
+
+
+Movie data
+cat output*.json | jq -s '[flatten | map(if .Metascore == "N/A" then .+{"Metascore":"0"} elif .imdbVotes == "N/A" then .+{"imdbVotes":"0"} else . end) | .[]]' >> premovie.json
+
+cat premovie.json | jq '[.[] | {title: .Title, plot: .Plot, type: .Type, genre: .Genre|split(", "), rate_desc: .Rated, year: .Year | tonumber, runtime: .Runtime, website: .Website, poster: .Poster, language: .Language|split(", "), country:.Country|split(", "), production: .Production, director: .Director|split(", "), writer: .Writer|split(", "), actors: .Actors|split(", "), released: .Released, dvd: .DVD, awards: .Awards, boxoffice: .BoxOffice, imdbID: .imdbID, imdbRating: .imdbRating | tonumber, imdbVotes: .imdbVotes | split(",") | join("") | tonumber, metascore: .Metascore | tonumber, ratings: .Ratings}]' >> movie.json
+
+
+Rate_desc data
+cat movie.json | jq '[.[] | {rate_desc: .rate_desc}] | unique' >> rated.json
+
+
+Genre data
+cat movie.json | jq '[{genre: .[] .genre | split(", ") | .[] }]| unique' >> genre.json
