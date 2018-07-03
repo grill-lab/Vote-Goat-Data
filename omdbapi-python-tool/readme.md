@@ -17,6 +17,8 @@ pandas
 
 ## Get target movie ids
 
+The downloaded file includes all IMDB content, we filter all entries except those which have type 'movie', if you want to change this then edit the ```produce_imdb_id_list.py``` script 👍.
+
 ```
 wget https://datasets.imdbws.com/title.basics.tsv.gz
 gunzip title.basics.tsv.gz
@@ -57,6 +59,27 @@ Retrieved movies: 489166
 Time taken: 1536.7215342521667
 ```
 
+## Process dumped data
+
+Configure the ```insert_movies.py``` script to target your MongoDB database.
+
+Inspect the ```reduce_movie_json.py``` script - you may wish to alter what movies you filter, such as adult or violent movies.
+
+```
+python3 reduce_movie_json.py
+python3 insert_movies.py
+```
+
 ## Take note of any failures
 
 There may be failures due to connection issues or JSON parsing issues, take note of them and try to scrape individually.
+
+```
+python3 quantity_failures.py
+# If the above reports failures, run the following.
+python3 produce_failed_imdb_id_list.py
+# Move the CSV produced by the above in place of the main imdb id target csv file
+python3 multiprocessed_omdb_dump.py
+```
+
+NOTE: [Approx 60.5k movies were not retrievable from OMDBAPI](https://github.com/omdbapi/OMDb-API/issues/74#issuecomment-400363435). Hopefully these will be fixed in the future.
