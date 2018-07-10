@@ -2,3 +2,4 @@
 omdbapi-python-tool/data/filtered_movies.tar.gz
 omdbapi-python-tool/data/USER_BACKUP.csv
 omdbapi-python-tool/data/Movies.json
+__pycache__/hug_vm.cpython-36.pyc

@@ -1,3 +1,5 @@
-http://127.0.0.1:8000/create_experiment_values?intent=recommend_movies&probability_0=50&probability_1=50&function_0=get_random_movie_list&function_1=get_random_movie_list&parameters_0=sort_target:imdbVotes,sort_direction:DESCENDING&parameters_1=sort_target:imdbRating,sort_direction:DESCENDING&api_key=API_KEY
+http://127.0.0.1:8000/create_experiment_values?intent=recommend_movies&probability_0=50&probability_1=50&function_0=get_random_movie_list&function_1=get_random_movie_list&parameters_0=sort_target:imdbVotes,sort_direction:DESCENDING,target_min_value:50&parameters_1=sort_target:imdbRating,sort_direction:DESCENDING,target_min_value:4&api_key=API_KEY
 
-http://127.0.0.1:8000/create_experiment_values?intent=get_single_unrated_movie&function_0=get_single_training_movie&function_1=get_single_training_movie&parameters_0=sort_target:imdbVotes,sort_direction:DESCENDING&parameters_1=sort_target:metascore,sort_direction:DESCENDING&probability_0=50&probability_1=50&api_key=API_KEY
+http://127.0.0.1:8000/create_experiment_values?intent=get_single_unrated_movie&function_0=get_single_training_movie&function_1=get_single_training_movie&parameters_0=sort_target:imdbVotes,sort_direction:DESCENDING,target_min_value:50&parameters_1=sort_target:imdbRating,sort_direction:DESCENDING,target_min_value:4&probability_0=50&probability_1=50&api_key=API_KEY
+
+TODO: Create an UI for issuing one of the above commands.
